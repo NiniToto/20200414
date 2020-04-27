@@ -1,6 +1,4 @@
-페이징 처리
-    . ROWNUM
-    . INLINE-VIEW(오라클 한정)
+페이징 처리.rownum.inline-VIEW(오라클 한정)
     . 페이징 공식
     . 바인드 변수
 
@@ -192,20 +190,30 @@ FROM dual;
  
  LAST_DAY(DATE1) : DATE1이 속한 월의 마지막 날짜를 반환
  SELECT LAST_DAY(SYSDATE)
+ FROM dual; 날짜가 속한 월의 첫번째 날짜 구하기 ( 1일 )
+ 
+SELECT
+    last_day(add_months(SYSDATE,-1) ) + 1,
+    add_months(last_day(SYSDATE) + 1,-1),
+    TO_DATE(TO_CHAR(SYSDATE,'YYYYMM')
+    || '01','YYYYMMDD')
+FROM
+    dual;
+    
+    
+ --fn3
+ SELECT '201912' PARAM,
+        (LAST_DAY(TO_DATE('201912', 'yyyymm')) -
+        LAST_DAY(ADD_MONTHS(TO_DATE('201912', 'yyyymm'), -1) + 1)) DT
  FROM dual;
  
- 날짜가 속한 월의 첫번째 날짜 구하기(1일)
- SELECT LAST_DAY(ADD_MONTHS(SYSDATE, -1)) + 1,
-        ADD_MONTHS(LAST_DAY(SYSDATE) + 1, -1),
-        TO_DATE(TO_CHAR(SYSDATE, 'YYYYMM') || '01', 'YYYYMMDD')
+  SELECT '201912' PARAM,
+        TO_CHAR(LAST_DAY(TO_DATE('201912', 'yyyymm')), 'dd') dt 
  FROM dual;
  
- 
- 
- 
- 
-
-
+ SELECT '201912' PARAM,
+        TO_CHAR(LAST_DAY(TO_DATE(:yyyymm, 'yyyymm')), 'dd') dt 
+ FROM dual;
 
 
 

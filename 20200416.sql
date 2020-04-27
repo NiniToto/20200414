@@ -63,6 +63,9 @@ FROM buyer;
 SELECT userid || 'test', reg_dt + 5, 'test', 15
 FROM users;
 
+SELECT 'name:' || userid, reg_dt + 364
+FROM users;
+
 SELECT '∞Ê ' || userid || ' √‡' 
 FROM users;
 

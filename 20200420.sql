@@ -122,7 +122,7 @@ FROM
     FROM
         (SELECT empno, ename
         FROM emp
-        ORDER BY ename) a) a
+        ORDER BY ename) a)
 WHERE rn BETWEEN 11 AND 20;
 
 WHERE rn BETWEEN 1 AND 10; 1 PAGE;
@@ -212,6 +212,14 @@ FROM
 WHERE rn BETWEEN 1 + (:page - 1) * :pageSize AND :pageSize * :page;
 
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 
 

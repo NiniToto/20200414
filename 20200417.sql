@@ -220,7 +220,7 @@ ORDER BY ename DESC;
 --job을 기준으로 오름 차순정렬하고 job이 같을 경우 입사일자로 내림차순 정렬
 SELECT *
 FROM emp
-ORDER BY job ASC, hiredate DESC;
+ORDER BY job ASC, hiredate DESC, ename;
 
 
 

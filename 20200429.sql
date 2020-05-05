@@ -100,12 +100,20 @@ SELECT NVL(cycle.pid, product.pid) pid, pnm, NVL(cid, 1) cid, NVL(day, 0) day, N
 FROM cycle RIGHT OUTER JOIN product ON (cycle.pid = product.pid AND cid = 1);
 
 --outerjoin5
-SELECT product.pid, pnm, 1 cid, cnm, NVL(day, 0) day, NVL(cnt,1) cnt
-FROM cycle, product, customer
-WHERE cycle.pid(+) = product.pid AND cycle.cid = customer.cid(+) AND cycle.cid(+) = 1
-ORDER BY product.pid DESC, day DESC;
---틀린 쿼리 // 인라인뷰를 사용해서 푸는게 맞는 방법이다.
-
+SELECT c.pid, c.pnm, 1 cid, NVL(A.day, 0) day, NVL(A.cnt, 0) cnt
+FROM product c,
+    (SELECT a.cid, a.pid, a.day, a.cnt, b.cnm
+     FROM cycle a, customer b
+     WHERE a.cid(+) = b.cid AND a.cid =1) A
+WHERE c.pid = A.pid(+);
+     
+SELECT A.* 
+FROM 
+    (SELECT *
+    FROM cycle, product
+    WHERE cycle.pid = product.pid) A;
+    
+    
 SELECT pid, pnm, a.cid, cnm, day, cnt
 FROM customer RIGHT OUTER JOIN
     (SELECT NVL(cycle.pid, product.pid) pid, pnm, NVL(cid, 1) cid, NVL(day, 0) day, NVL(cnt,0) cnt
@@ -134,7 +142,6 @@ FROM customer, product;
 
 SELECT *
 FROM customer CROSS JOIN product;
-
 
 서브쿼리
 WHERE : 조건을 만족하는 해만 조회되도록 제한

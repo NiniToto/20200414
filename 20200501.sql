@@ -84,7 +84,8 @@ FROM emp
 WHERE empno NOT IN (SELECT mgr
                     FROM emp);
 --> NULL이 있기 때문에 정상작동 하지 않는다.
-
+--7902, 7698, 7839, 7566, 7788, 7566, 7782
+--ford, blake, king, jones, scott, jones, clark
 --해결 방법1
 SELECT *
 FROM emp
@@ -192,6 +193,10 @@ WHERE deptno = 10;
 SELECT *
 FROM emp a
 WHERE sal > (SELECT AVG(sal) FROM emp WHERE deptno = a.deptno); ==> 상호 연관 서브쿼리
+
+SELECT *
+FROM emp a
+WHERE sal > (SELECT AVG(sal) FROM emp WHERE deptno = a.deptno);
 
 SELECT *
 FROM dept;

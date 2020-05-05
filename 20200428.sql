@@ -71,7 +71,40 @@ FROM cycle, product
 WHERE cycle.pid = product.pid
 GROUP BY product.pid, product.pnm; -- Group Function 안에 사용한 컬럼은 Group by절에 기술하지 않고 사용하는 것도 가능하다.
 
+[join8 ~ 13 과제]
+
 --join8
+SELECT regions.region_id, region_name, country_name
+FROM countries, regions
+WHERE countries.region_id = regions.region_id AND region_name = 'Europe';
+
+--join9
+SELECT regions.region_id, region_name, country_name, city
+FROM countries, regions, locations
+WHERE countries.region_id = regions.region_id AND countries.country_id = locations.country_id AND region_name = 'Europe';
+
+--join10
+SELECT regions.region_id, region_name, country_name, city, department_name
+FROM countries, regions, locations, departments
+WHERE countries.region_id = regions.region_id AND countries.country_id = locations.country_id 
+  AND locations.location_id = departments.location_id AND region_name = 'Europe';
+
+--join11
+SELECT regions.region_id, region_name, country_name, city, department_name, CONCAT(employees.FIRST_NAME, employees.last_name) name
+FROM countries, regions, locations, departments, employees
+WHERE countries.region_id = regions.region_id AND countries.country_id = locations.country_id 
+  AND locations.location_id = departments.location_id AND region_name = 'Europe' AND departments.department_id = employees.department_id;
+  
+--join12
+SELECT employee_id, CONCAT(employees.FIRST_NAME, employees.last_name) name, jobs.job_id, job_title
+FROM employees, jobs
+WHERE employees.job_id = jobs.job_id;
+
+--join13
+SELECT m.employee_id mgr_id, CONCAT(m.first_name, m.last_name) mgr_name, e.employee_id, CONCAT(e.FIRST_NAME, e.last_name) name, jobs.job_id, job_title
+FROM employees e, jobs, employees m
+WHERE e.job_id = jobs.job_id AND e.manager_id = m.employee_id;
+
 
 
 
